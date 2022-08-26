@@ -1,7 +1,7 @@
 const { default: mongoose } = require("mongoose")
 const mogoose = require("mongoose");
 
-const PostSchema = new mongoose.Schema(
+const CategorySchema = new mongoose.Schema(
   {
     name: {
         type: String,

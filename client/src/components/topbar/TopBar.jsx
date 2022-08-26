@@ -1,8 +1,15 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../../context/Context";
 import "./topbar.css";
 
 export default function TopBar() {
-  const user = false;
+  const { user, dispatch } = useContext(Context);
+  const PF = "http://localhost:8000/images/"
+console.log("user", user)
+  const handleLogout = () => {
+    dispatch({type:"LOGOUT"});
+  }
   return (
     <div className="top">
       <div className="topLeft">
@@ -13,25 +20,38 @@ export default function TopBar() {
       </div>
       <div className="topCenter">
         <ul className="topList">
-            <li className="topListItem"> 
-              <Link className="link" to="/"> HOME </Link>
-            </li>
-            <li className="topListItem"> <Link className="link" to="/"> ABOUT </Link> </li>
-            <li className="topListItem"> <Link className="link" to="/"> CONTACT </Link> </li>
-            <li className="topListItem"> <Link className="link" to="/write"> WRITE </Link> </li>
-            <li className="topListItem"> 
-              {user && "LOGOUT"}
-            </li> 
+        <li className="topListItem">
+            <Link className="link" to="/">
+              HOME
+            </Link>
+          </li>
+          <li className="topListItem">
+            <Link className="link" to="/">
+              ABOUT
+            </Link>
+          </li>
+          <li className="topListItem">
+            <Link className="link" to="/">
+              CONTACT
+            </Link>
+          </li>
+          <li className="topListItem">
+            <Link className="link" to="/write">
+              WRITE
+            </Link>
+          </li>
+            <li className="topListItem" onClick={handleLogout}> {user && "LOGOUT"} </li> 
         </ul>
       </div>
       <div className="topRight">
-        {
-          user ? (
+        {user ? (
+          <Link to="/settings">
             <img 
               className="topImg" 
-              src="../images/topImg.jpg" 
+              src={PF + user.profilePic}
               alt=""
             />
+          </Link>
           ) : (
             <ul className="topList">
               <li className="topListItem">
